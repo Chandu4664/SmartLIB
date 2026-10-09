@@ -1,0 +1,410 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartLib - Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: linear-gradient(135deg, #0f4c5c, #123c69);
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.75;
+        }
+
+        .logout {
+            background: #ffffff;
+            color: #123c69 !important;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* HERO */
+        .hero {
+            margin: 35px 6%;
+            padding: 45px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0f4c5c, #123c69);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            opacity: 0.9;
+        }
+
+        /* STATS */
+        .stats {
+            margin: 0 6% 35px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+        }
+
+        .stat-card .icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card h2 {
+            font-size: 28px;
+            color: #123c69;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #6b7280;
+        }
+
+        /* SECTION */
+        .section {
+            margin: 0 6% 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #123c69;
+        }
+
+        /* QUICK ACTIONS */
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .action {
+            border: none;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+            transition: 0.3s;
+        }
+
+        .action:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .action div {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .action h3 {
+            color: #123c69;
+            font-size: 18px;
+        }
+
+        /* POPULAR BOOKS */
+        .books {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .book-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+        }
+
+        .book-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .book-card h3 {
+            color: #123c69;
+            margin-bottom: 8px;
+        }
+
+        .book-card p {
+            color: #6b7280;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #123c69;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .stats,
+            .actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .books {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 30px 25px;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            .stats,
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">📚 SmartLib</div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="mybooks.html">My Books</a>
+            <a href="reservation.html">Reservations</a>
+            <a href="profile.html">Profile</a>
+            <a href="index.html" class="logout">Logout</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Welcome to SmartLib, Chandu A 👋</h1>
+        <p>Manage your books, reservations and library activity easily.</p>
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats">
+
+        <div class="stat-card">
+            <div class="icon">📚</div>
+            <h2>6</h2>
+            <p>Total Books</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">📖</div>
+            <h2 id="borrowedCount">0</h2>
+            <p>Borrowed Books</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">✅</div>
+            <h2 id="availableCount">6</h2>
+            <p>Available Books</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">👥</div>
+            <h2>120</h2>
+            <p>Library Members</p>
+        </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+    <section class="section">
+
+        <h2 class="section-title">Quick Actions</h2>
+
+        <div class="actions">
+
+            <button
+                class="action"
+                onclick="location.href='books.html'">
+
+                <div>🔎</div>
+                <h3>Search Books</h3>
+
+            </button>
+
+
+            <button
+                class="action"
+                onclick="location.href='mybooks.html'">
+
+                <div>📖</div>
+                <h3>My Books</h3>
+
+            </button>
+
+
+            <button
+                class="action"
+                onclick="location.href='reservation.html'">
+
+                <div>🔖</div>
+                <h3>Reservations</h3>
+
+            </button>
+
+
+            <button
+                class="action"
+                onclick="location.href='profile.html'">
+
+                <div>👤</div>
+                <h3>My Profile</h3>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- POPULAR BOOKS -->
+    <section class="section">
+
+        <h2 class="section-title">Popular Books</h2>
+
+        <div class="books">
+
+            <div class="book-card">
+                <div class="book-icon">📘</div>
+                <h3>Atomic Habits</h3>
+                <p>James Clear</p>
+            </div>
+
+
+            <div class="book-card">
+                <div class="book-icon">📗</div>
+                <h3>Clean Code</h3>
+                <p>Robert C. Martin</p>
+            </div>
+
+
+            <div class="book-card">
+                <div class="book-icon">📕</div>
+                <h3>The Alchemist</h3>
+                <p>Paulo Coelho</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 SmartLib | Smart Library Management System</p>
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        function updateDashboard() {
+
+            let borrowedBooks =
+                JSON.parse(localStorage.getItem("borrowedBooks")) || [];
+
+            let borrowedCount =
+                borrowedBooks.length;
+
+            let totalBooks = 6;
+
+            let availableBooks =
+                totalBooks - borrowedCount;
+
+            if (availableBooks < 0) {
+                availableBooks = 0;
+            }
+
+            document.getElementById("borrowedCount").textContent =
+                borrowedCount;
+
+            document.getElementById("availableCount").textContent =
+                availableBooks;
+        }
+
+        updateDashboard();
+
+    </script>
+
+</body>
+</html>
+```

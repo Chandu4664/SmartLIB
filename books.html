@@ -1,0 +1,835 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SmartLib - Books</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7f9;
+            color: #263238;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            height: 70px;
+            background: #123c4a;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd166;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #ffd166;
+        }
+
+        .logout {
+            background: #ffd166;
+            color: #123c4a !important;
+            padding: 9px 17px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* Main */
+
+        .main {
+            width: 88%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            color: #123c4a;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #777;
+        }
+
+        /* Search */
+
+        .search-box {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+
+            display: flex;
+            gap: 12px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            flex: 1;
+
+            padding: 14px;
+
+            border: 1px solid #ddd;
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 15px;
+        }
+
+        .search-box input:focus {
+            border-color: #176b87;
+        }
+
+        .search-btn {
+            padding: 14px 25px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #176b87;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background: #123c4a;
+        }
+
+        /* Categories */
+
+        .categories {
+            display: flex;
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 35px;
+        }
+
+        .category {
+            background: white;
+
+            border: 1px solid #ddd;
+
+            padding: 10px 18px;
+
+            border-radius: 20px;
+
+            color: #176b87;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        .category:hover {
+            background: #176b87;
+            color: white;
+        }
+
+        /* Book Grid */
+
+        .books {
+            display: grid;
+
+            grid-template-columns:
+            repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .book-card {
+            background: white;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+            0 5px 18px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .book-cover {
+            height: 180px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 65px;
+
+            background:
+            linear-gradient(
+                135deg,
+                #176b87,
+                #2c5364
+            );
+        }
+
+        .book-info {
+            padding: 20px;
+        }
+
+        .book-info h3 {
+            color: #123c4a;
+
+            margin-bottom: 7px;
+        }
+
+        .author {
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            display: inline-block;
+
+            background: #e8f4f7;
+
+            color: #176b87;
+
+            padding: 5px 9px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+            margin-bottom: 15px;
+        }
+
+        .book-bottom {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .available {
+            color: #238636;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .borrow-btn {
+            background: #176b87;
+
+            color: white;
+
+            border: none;
+
+            padding: 9px 14px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+        }
+
+        .borrow-btn:hover {
+            background: #123c4a;
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            margin-top: 50px;
+
+            background: #123c4a;
+
+            color: #dceef2;
+
+            font-size: 13px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 850px) {
+
+            .books {
+                grid-template-columns:
+                repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .books {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .main {
+                width: 92%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Smart<span>Lib</span>
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="dashboard.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="books.html">
+                    Books
+                </a>
+            </li>
+
+            <!-- My Books connected -->
+
+            <li>
+                <a href="my-books.html">
+                    My Books
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html"
+                   class="logout">
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- Main -->
+
+    <main class="main">
+
+
+        <div class="page-heading">
+
+            <h1>Explore Our Library</h1>
+
+            <p>
+                Search and discover your next favourite book.
+            </p>
+
+        </div>
+
+
+
+        <!-- Search -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by book title, author or category..."
+            >
+
+            <button
+                class="search-btn"
+                onclick="searchBooks()">
+
+                🔎 Search
+
+            </button>
+
+        </div>
+
+
+
+        <!-- Categories -->
+
+        <div class="categories">
+
+            <button class="category">
+                All Books
+            </button>
+
+            <button class="category">
+                Programming
+            </button>
+
+            <button class="category">
+                Fiction
+            </button>
+
+            <button class="category">
+                Science
+            </button>
+
+            <button class="category">
+                Business
+            </button>
+
+            <button class="category">
+                Self Development
+            </button>
+
+        </div>
+
+
+
+        <!-- Books -->
+
+        <section class="books" id="bookList">
+
+
+            <!-- Book 1 -->
+
+            <div class="book-card">
+
+                <div class="book-cover">
+                    📘
+                </div>
+
+                <div class="book-info">
+
+                    <h3>
+                        Atomic Habits
+                    </h3>
+
+                    <p class="author">
+                        James Clear
+                    </p>
+
+                    <span class="category-name">
+                        Self Development
+                    </span>
+
+                    <div class="book-bottom">
+
+                        <span class="available">
+                            ● Available
+                        </span>
+
+                        <button
+                            class="borrow-btn"
+                            onclick="borrowBook('Atomic Habits')">
+
+                            Borrow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Book 2 -->
+
+            <div class="book-card">
+
+                <div class="book-cover">
+                    📗
+                </div>
+
+                <div class="book-info">
+
+                    <h3>
+                        Clean Code
+                    </h3>
+
+                    <p class="author">
+                        Robert C. Martin
+                    </p>
+
+                    <span class="category-name">
+                        Programming
+                    </span>
+
+                    <div class="book-bottom">
+
+                        <span class="available">
+                            ● Available
+                        </span>
+
+                        <button
+                            class="borrow-btn"
+                            onclick="borrowBook('Clean Code')">
+
+                            Borrow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Book 3 -->
+
+            <div class="book-card">
+
+                <div class="book-cover">
+                    📕
+                </div>
+
+                <div class="book-info">
+
+                    <h3>
+                        The Alchemist
+                    </h3>
+
+                    <p class="author">
+                        Paulo Coelho
+                    </p>
+
+                    <span class="category-name">
+                        Fiction
+                    </span>
+
+                    <div class="book-bottom">
+
+                        <span class="available">
+                            ● Available
+                        </span>
+
+                        <button
+                            class="borrow-btn"
+                            onclick="borrowBook('The Alchemist')">
+
+                            Borrow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Book 4 -->
+
+            <div class="book-card">
+
+                <div class="book-cover">
+                    📙
+                </div>
+
+                <div class="book-info">
+
+                    <h3>
+                        Python Crash Course
+                    </h3>
+
+                    <p class="author">
+                        Eric Matthes
+                    </p>
+
+                    <span class="category-name">
+                        Programming
+                    </span>
+
+                    <div class="book-bottom">
+
+                        <span class="available">
+                            ● Available
+                        </span>
+
+                        <button
+                            class="borrow-btn"
+                            onclick="borrowBook('Python Crash Course')">
+
+                            Borrow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Book 5 -->
+
+            <div class="book-card">
+
+                <div class="book-cover">
+                    📔
+                </div>
+
+                <div class="book-info">
+
+                    <h3>
+                        Think and Grow Rich
+                    </h3>
+
+                    <p class="author">
+                        Napoleon Hill
+                    </p>
+
+                    <span class="category-name">
+                        Business
+                    </span>
+
+                    <div class="book-bottom">
+
+                        <span class="available">
+                            ● Available
+                        </span>
+
+                        <button
+                            class="borrow-btn"
+                            onclick="borrowBook('Think and Grow Rich')">
+
+                            Borrow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Book 6 -->
+
+            <div class="book-card">
+
+                <div class="book-cover">
+                    📓
+                </div>
+
+                <div class="book-info">
+
+                    <h3>
+                        The Power of Now
+                    </h3>
+
+                    <p class="author">
+                        Eckhart Tolle
+                    </p>
+
+                    <span class="category-name">
+                        Self Development
+                    </span>
+
+                    <div class="book-bottom">
+
+                        <span class="available">
+                            ● Available
+                        </span>
+
+                        <button
+                            class="borrow-btn"
+                            onclick="borrowBook('The Power of Now')">
+
+                            Borrow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        © 2026 SmartLib — Smart Library Management System
+
+    </footer>
+
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        /* Borrow Book */
+
+        function borrowBook(bookName) {
+
+            let borrowedBooks =
+                JSON.parse(
+                    localStorage.getItem("borrowedBooks")
+                ) || [];
+
+            /* Check if book is already borrowed */
+
+            if (borrowedBooks.includes(bookName)) {
+
+                alert(
+                    bookName +
+                    " is already in your My Books list."
+                );
+
+                return;
+            }
+
+            /* Add book */
+
+            borrowedBooks.push(bookName);
+
+            localStorage.setItem(
+                "borrowedBooks",
+                JSON.stringify(borrowedBooks)
+            );
+
+            alert(
+                "📚 " +
+                bookName +
+                " has been added to My Books!"
+            );
+
+        }
+
+
+        /* Search Books */
+
+        function searchBooks() {
+
+            let searchText =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+            let books =
+                document.querySelectorAll(".book-card");
+
+            books.forEach(function(book) {
+
+                let bookText =
+                    book.innerText.toLowerCase();
+
+                if (bookText.includes(searchText)) {
+
+                    book.style.display = "block";
+
+                } else {
+
+                    book.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
+```

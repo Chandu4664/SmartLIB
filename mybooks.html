@@ -1,0 +1,479 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Books | SmartLib</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: linear-gradient(135deg, #0f4c5c, #123c69);
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #7dd3fc;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #7dd3fc;
+        }
+
+        .logout {
+            background: #ef4444;
+            padding: 9px 16px;
+            border-radius: 8px;
+        }
+
+        .logout:hover {
+            color: white !important;
+            background: #dc2626;
+        }
+
+        /* HEADER */
+        .page-header {
+            padding: 45px 7% 25px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            color: #123c69;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        /* BOOK CONTAINER */
+        .books-container {
+            padding: 10px 7% 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* BOOK CARD */
+        .book-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            border: 1px solid #e5e7eb;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .book-icon {
+            width: 75px;
+            height: 90px;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            margin-bottom: 18px;
+        }
+
+        .book-card h2 {
+            font-size: 21px;
+            color: #123c69;
+            margin-bottom: 8px;
+        }
+
+        .author {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            display: inline-block;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .due-date {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .due-date strong {
+            color: #123c69;
+        }
+
+        .return-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #ef4444;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .return-btn:hover {
+            background: #dc2626;
+        }
+
+        /* EMPTY MESSAGE */
+        .empty-message {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .empty-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .empty-message h2 {
+            color: #123c69;
+            margin-bottom: 10px;
+        }
+
+        .empty-message p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            background: #123c69;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .browse-btn:hover {
+            background: #0f4c5c;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #123c69;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page-header {
+                padding: 35px 5% 20px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .books-container {
+                padding: 10px 5% 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            Smart<span>Lib</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="mybooks.html">My Books</a>
+            <a href="index.html" class="logout">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+        <h1>📚 My Books</h1>
+
+        <p>
+            View and manage the books you have borrowed from SmartLib.
+        </p>
+
+    </section>
+
+
+    <!-- BOOKS -->
+    <section class="books-container" id="booksContainer">
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 SmartLib | Smart Library Management System</p>
+    </footer>
+
+
+    <script>
+
+        /* BOOK INFORMATION */
+
+        const bookDetails = {
+
+            "Atomic Habits": {
+                author: "James Clear",
+                dueDate: "15 October 2026",
+                icon: "📘"
+            },
+
+            "Clean Code": {
+                author: "Robert C. Martin",
+                dueDate: "18 October 2026",
+                icon: "📗"
+            },
+
+            "The Alchemist": {
+                author: "Paulo Coelho",
+                dueDate: "20 October 2026",
+                icon: "📕"
+            },
+
+            "Python Crash Course": {
+                author: "Eric Matthes",
+                dueDate: "22 October 2026",
+                icon: "📙"
+            },
+
+            "Think and Grow Rich": {
+                author: "Napoleon Hill",
+                dueDate: "24 October 2026",
+                icon: "📔"
+            },
+
+            "The Power of Now": {
+                author: "Eckhart Tolle",
+                dueDate: "26 October 2026",
+                icon: "📓"
+            }
+
+        };
+
+
+        /* DISPLAY BORROWED BOOKS */
+
+        function displayBooks() {
+
+            let borrowedBooks =
+                JSON.parse(
+                    localStorage.getItem("borrowedBooks")
+                ) || [];
+
+            let container =
+                document.getElementById("booksContainer");
+
+            container.innerHTML = "";
+
+
+            /* NO BOOKS */
+
+            if (borrowedBooks.length === 0) {
+
+                container.innerHTML = `
+                    <div class="empty-message">
+
+                        <div class="empty-icon">
+                            📚
+                        </div>
+
+                        <h2>No Borrowed Books</h2>
+
+                        <p>
+                            You haven't borrowed any books yet.
+                            Browse the library and choose a book.
+                        </p>
+
+                        <a href="books.html" class="browse-btn">
+                            Browse Books
+                        </a>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            /* CREATE BOOK CARDS */
+
+            borrowedBooks.forEach(function(bookName) {
+
+                let book = bookDetails[bookName];
+
+                if (!book) {
+                    return;
+                }
+
+                let card = document.createElement("div");
+
+                card.className = "book-card";
+
+                card.innerHTML = `
+
+                    <div class="book-icon">
+                        ${book.icon}
+                    </div>
+
+                    <h2>
+                        ${bookName}
+                    </h2>
+
+                    <p class="author">
+                        By ${book.author}
+                    </p>
+
+                    <span class="status">
+                        Borrowed
+                    </span>
+
+                    <div class="due-date">
+                        <strong>Due Date:</strong>
+                        ${book.dueDate}
+                    </div>
+
+                    <button
+                        class="return-btn"
+                        onclick="returnBook('${bookName}')">
+
+                        Return Book
+
+                    </button>
+
+                `;
+
+                container.appendChild(card);
+
+            });
+
+        }
+
+
+        /* RETURN BOOK */
+
+        function returnBook(bookName) {
+
+            let borrowedBooks =
+                JSON.parse(
+                    localStorage.getItem("borrowedBooks")
+                ) || [];
+
+
+            borrowedBooks =
+                borrowedBooks.filter(function(book) {
+
+                    return book !== bookName;
+
+                });
+
+
+            localStorage.setItem(
+                "borrowedBooks",
+                JSON.stringify(borrowedBooks)
+            );
+
+
+            alert(
+                "📚 " +
+                bookName +
+                " has been returned successfully!"
+            );
+
+
+            displayBooks();
+
+        }
+
+
+        /* LOAD BOOKS WHEN PAGE OPENS */
+
+        displayBooks();
+
+    </script>
+
+</body>
+</html>
+```

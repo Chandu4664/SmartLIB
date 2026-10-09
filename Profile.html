@@ -1,0 +1,780 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | SmartLib</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+
+            background: linear-gradient(
+                135deg,
+                #0f4c5c,
+                #123c69
+            );
+
+            color: white;
+
+            padding: 18px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.15);
+
+        }
+
+
+        .logo {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #7dd3fc;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 28px;
+
+            align-items: center;
+
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #7dd3fc;
+
+        }
+
+
+        .logout {
+
+            background: #ef4444;
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+
+        }
+
+
+        .logout:hover {
+
+            background: #dc2626;
+
+            color: white !important;
+
+        }
+
+
+        /* HEADER */
+
+        .page-header {
+
+            padding: 45px 7% 25px;
+
+        }
+
+
+        .page-header h1 {
+
+            font-size: 32px;
+
+            color: #123c69;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .page-header p {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+
+        /* PROFILE */
+
+        .profile-container {
+
+            padding: 10px 7% 50px;
+
+            display: grid;
+
+            grid-template-columns: 300px 1fr;
+
+            gap: 25px;
+
+            max-width: 1200px;
+
+            margin: auto;
+
+        }
+
+
+        /* PROFILE CARD */
+
+        .profile-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
+            border: 1px solid #e5e7eb;
+
+            height: fit-content;
+
+        }
+
+
+        .profile-avatar {
+
+            width: 110px;
+
+            height: 110px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dbeafe,
+                    #bfdbfe
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 55px;
+
+        }
+
+
+        .profile-card h2 {
+
+            color: #123c69;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .profile-card p {
+
+            color: #64748b;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .member-badge {
+
+            display: inline-block;
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* DETAILS */
+
+        .details-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
+            border: 1px solid #e5e7eb;
+
+        }
+
+
+        .details-card h2 {
+
+            color: #123c69;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .details-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        .detail-box {
+
+            background: #f8fafc;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .detail-box label {
+
+            display: block;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .detail-box strong {
+
+            color: #123c69;
+
+            font-size: 16px;
+
+        }
+
+
+        /* ACTIVITY */
+
+        .activity {
+
+            margin-top: 25px;
+
+        }
+
+
+        .activity h2 {
+
+            color: #123c69;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .activity-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        .activity-card {
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .activity-icon {
+
+            font-size: 28px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .activity-card h3 {
+
+            font-size: 28px;
+
+            color: #123c69;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .activity-card p {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            background: #123c69;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+
+            margin-top: 30px;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .nav-links {
+
+                gap: 15px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+
+            .profile-container {
+
+                grid-template-columns: 1fr;
+
+                padding-left: 5%;
+
+                padding-right: 5%;
+
+            }
+
+
+            .page-header {
+
+                padding-left: 5%;
+
+                padding-right: 5%;
+
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .details-grid,
+            .activity-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            Smart<span>Lib</span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="dashboard.html">
+                Home
+            </a>
+
+            <a href="books.html">
+                Books
+            </a>
+
+            <a href="mybooks.html">
+                My Books
+            </a>
+
+            <a href="reservation.html">
+                Reservations
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+            <a href="index.html"
+               class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HEADER -->
+
+    <section class="page-header">
+
+        <h1>
+            👤 My Profile
+        </h1>
+
+        <p>
+            View your SmartLib membership and library activity.
+        </p>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section class="profile-container">
+
+
+        <!-- PROFILE CARD -->
+
+        <div class="profile-card">
+
+            <div class="profile-avatar">
+                👤
+            </div>
+
+
+            <h2>
+                Chandu A
+            </h2>
+
+
+            <p>
+                Student Member
+            </p>
+
+
+            <span class="member-badge">
+                ● Active Member
+            </span>
+
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div class="details-card">
+
+            <h2>
+                Personal Information
+            </h2>
+
+
+            <div class="details-grid">
+
+
+                <div class="detail-box">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <strong>
+                        Chandu A
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        Student ID
+                    </label>
+
+                    <strong>
+                        BCA2026
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        Course
+                    </label>
+
+                    <strong>
+                        Bachelor of Computer Applications
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        Department
+                    </label>
+
+                    <strong>
+                        Computer Applications
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <strong>
+                        student@smartlib.com
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        Membership
+                    </label>
+
+                    <strong>
+                        Active
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ACTIVITY -->
+
+            <div class="activity">
+
+                <h2>
+                    Library Activity
+                </h2>
+
+
+                <div class="activity-grid">
+
+
+                    <div class="activity-card">
+
+                        <div class="activity-icon">
+                            📚
+                        </div>
+
+                        <h3 id="borrowedCount">
+                            0
+                        </h3>
+
+                        <p>
+                            Currently Borrowed
+                        </p>
+
+                    </div>
+
+
+                    <div class="activity-card">
+
+                        <div class="activity-icon">
+                            🔖
+                        </div>
+
+                        <h3 id="reservationCount">
+                            0
+                        </h3>
+
+                        <p>
+                            Active Reservations
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 SmartLib | Smart Library Management System
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        function updateActivity() {
+
+
+            /* BORROWED BOOKS */
+
+            let borrowedBooks =
+                JSON.parse(
+                    localStorage.getItem("borrowedBooks")
+                ) || [];
+
+
+            document.getElementById(
+                "borrowedCount"
+            ).textContent =
+                borrowedBooks.length;
+
+
+            /* RESERVATIONS */
+
+            let reservations =
+                JSON.parse(
+                    localStorage.getItem("reservations")
+                ) || [];
+
+
+            document.getElementById(
+                "reservationCount"
+            ).textContent =
+                reservations.length;
+
+        }
+
+
+        updateActivity();
+
+
+    </script>
+
+
+</body>
+
+</html>
+```

@@ -1,0 +1,959 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Reservations | SmartLib</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+
+            background: linear-gradient(
+                135deg,
+                #0f4c5c,
+                #123c69
+            );
+
+            color: white;
+
+            padding: 18px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.15);
+
+        }
+
+
+        .logo {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #7dd3fc;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 28px;
+
+            align-items: center;
+
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #7dd3fc;
+
+        }
+
+
+        .logout {
+
+            background: #ef4444;
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+
+        }
+
+
+        .logout:hover {
+
+            background: #dc2626;
+
+            color: white !important;
+
+        }
+
+
+        /* HEADER */
+
+        .page-header {
+
+            padding: 45px 7% 25px;
+
+        }
+
+
+        .page-header h1 {
+
+            font-size: 32px;
+
+            color: #123c69;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .page-header p {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+
+        /* RESERVATION AREA */
+
+        .reservation-container {
+
+            padding: 10px 7% 50px;
+
+        }
+
+
+        .reservation-box {
+
+            background: white;
+
+            max-width: 850px;
+
+            margin: auto;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
+            border: 1px solid #e5e7eb;
+
+        }
+
+
+        .reservation-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .reservation-icon {
+
+            width: 60px;
+
+            height: 60px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dbeafe,
+                    #bfdbfe
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+        }
+
+
+        .reservation-title h2 {
+
+            color: #123c69;
+
+            font-size: 24px;
+
+        }
+
+
+        .reservation-title p {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-top: 5px;
+
+        }
+
+
+        /* FORM */
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+            color: #334155;
+
+        }
+
+
+        .form-group select,
+        .form-group input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        .form-group select:focus,
+        .form-group input:focus {
+
+            border-color: #123c69;
+
+        }
+
+
+        .reserve-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #123c69;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .reserve-btn:hover {
+
+            background: #0f4c5c;
+
+        }
+
+
+        /* RESERVATION LIST */
+
+        .my-reservations {
+
+            max-width: 850px;
+
+            margin: 30px auto 0;
+
+        }
+
+
+        .my-reservations h2 {
+
+            color: #123c69;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .reservation-card {
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 14px;
+
+            margin-bottom: 15px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+
+            border-left: 5px solid #123c69;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .reservation-info h3 {
+
+            color: #123c69;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .reservation-info p {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin: 4px 0;
+
+        }
+
+
+        .cancel-btn {
+
+            background: #ef4444;
+
+            color: white;
+
+            border: none;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        .cancel-btn:hover {
+
+            background: #dc2626;
+
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+
+            text-align: center;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 14px;
+
+            color: #64748b;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.05);
+
+        }
+
+
+        .empty-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            background: #123c69;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+
+            margin-top: 40px;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .nav-links {
+
+                gap: 15px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+
+            .page-header {
+
+                padding: 35px 5% 20px;
+
+            }
+
+
+            .reservation-container {
+
+                padding: 10px 5% 40px;
+
+            }
+
+
+            .reservation-box {
+
+                padding: 25px;
+
+            }
+
+
+            .reservation-card {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .cancel-btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            Smart<span>Lib</span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="dashboard.html">
+                Home
+            </a>
+
+            <a href="books.html">
+                Books
+            </a>
+
+            <a href="mybooks.html">
+                My Books
+            </a>
+
+            <a href="reservation.html">
+                Reservations
+            </a>
+
+            <a href="index.html"
+               class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HEADER -->
+
+    <section class="page-header">
+
+        <h1>
+            🔖 Book Reservations
+        </h1>
+
+        <p>
+            Reserve a book in advance and manage your reservations.
+        </p>
+
+    </section>
+
+
+    <!-- RESERVATION FORM -->
+
+    <section class="reservation-container">
+
+        <div class="reservation-box">
+
+            <div class="reservation-title">
+
+                <div class="reservation-icon">
+                    🔖
+                </div>
+
+                <div>
+
+                    <h2>
+                        Reserve a Book
+                    </h2>
+
+                    <p>
+                        Select a book and choose your preferred reservation date.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Select Book
+                </label>
+
+                <select id="bookSelect">
+
+                    <option value="">
+                        -- Select a Book --
+                    </option>
+
+                    <option value="Atomic Habits">
+                        Atomic Habits
+                    </option>
+
+                    <option value="Clean Code">
+                        Clean Code
+                    </option>
+
+                    <option value="The Alchemist">
+                        The Alchemist
+                    </option>
+
+                    <option value="Python Crash Course">
+                        Python Crash Course
+                    </option>
+
+                    <option value="Think and Grow Rich">
+                        Think and Grow Rich
+                    </option>
+
+                    <option value="The Power of Now">
+                        The Power of Now
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Reservation Date
+                </label>
+
+                <input
+                    type="date"
+                    id="reservationDate">
+
+            </div>
+
+
+            <button
+                class="reserve-btn"
+                onclick="reserveBook()">
+
+                🔖 Reserve Book
+
+            </button>
+
+        </div>
+
+
+        <!-- MY RESERVATIONS -->
+
+        <div class="my-reservations">
+
+            <h2>
+                My Reservations
+            </h2>
+
+            <div id="reservationList">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 SmartLib | Smart Library Management System
+        </p>
+
+    </footer>
+
+
+    <script>
+
+
+        /* LOAD RESERVATIONS */
+
+        function loadReservations() {
+
+            let reservations =
+                JSON.parse(
+                    localStorage.getItem("reservations")
+                ) || [];
+
+
+            let list =
+                document.getElementById(
+                    "reservationList"
+                );
+
+
+            list.innerHTML = "";
+
+
+            /* NO RESERVATIONS */
+
+            if (reservations.length === 0) {
+
+                list.innerHTML = `
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            🔖
+                        </div>
+
+                        <h3>
+                            No Reservations Yet
+                        </h3>
+
+                        <p>
+                            Your reserved books will appear here.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            /* DISPLAY RESERVATIONS */
+
+            reservations.forEach(
+                function(reservation, index) {
+
+                    let card =
+                        document.createElement("div");
+
+                    card.className =
+                        "reservation-card";
+
+
+                    card.innerHTML = `
+
+                        <div class="reservation-info">
+
+                            <h3>
+                                📚 ${reservation.book}
+                            </h3>
+
+                            <p>
+                                📅 Reservation Date:
+                                ${reservation.date}
+                            </p>
+
+                            <p>
+                                🔖 Status:
+                                Reserved
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="cancel-btn"
+                            onclick="cancelReservation(${index})">
+
+                            Cancel
+
+                        </button>
+
+                    `;
+
+
+                    list.appendChild(card);
+
+                }
+            );
+
+        }
+
+
+        /* RESERVE BOOK */
+
+        function reserveBook() {
+
+            let book =
+                document.getElementById(
+                    "bookSelect"
+                ).value;
+
+
+            let date =
+                document.getElementById(
+                    "reservationDate"
+                ).value;
+
+
+            if (book === "") {
+
+                alert(
+                    "Please select a book."
+                );
+
+                return;
+
+            }
+
+
+            if (date === "") {
+
+                alert(
+                    "Please select a reservation date."
+                );
+
+                return;
+
+            }
+
+
+            let reservations =
+                JSON.parse(
+                    localStorage.getItem("reservations")
+                ) || [];
+
+
+            /* CHECK DUPLICATE */
+
+            let alreadyReserved =
+                reservations.some(
+                    function(reservation) {
+
+                        return reservation.book === book;
+
+                    }
+                );
+
+
+            if (alreadyReserved) {
+
+                alert(
+                    "This book is already reserved."
+                );
+
+                return;
+
+            }
+
+
+            reservations.push({
+
+                book: book,
+
+                date: date
+
+            });
+
+
+            localStorage.setItem(
+
+                "reservations",
+
+                JSON.stringify(reservations)
+
+            );
+
+
+            alert(
+                "🔖 " +
+                book +
+                " has been reserved successfully!"
+            );
+
+
+            document.getElementById(
+                "bookSelect"
+            ).value = "";
+
+
+            document.getElementById(
+                "reservationDate"
+            ).value = "";
+
+
+            loadReservations();
+
+        }
+
+
+        /* CANCEL RESERVATION */
+
+        function cancelReservation(index) {
+
+            let reservations =
+                JSON.parse(
+                    localStorage.getItem("reservations")
+                ) || [];
+
+
+            let bookName =
+                reservations[index].book;
+
+
+            reservations.splice(index, 1);
+
+
+            localStorage.setItem(
+
+                "reservations",
+
+                JSON.stringify(reservations)
+
+            );
+
+
+            alert(
+                "🔖 Reservation for " +
+                bookName +
+                " has been cancelled."
+            );
+
+
+            loadReservations();
+
+        }
+
+
+        /* LOAD WHEN PAGE OPENS */
+
+        loadReservations();
+
+
+    </script>
+
+</body>
+
+</html>
+```
